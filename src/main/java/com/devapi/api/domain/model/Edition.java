@@ -5,10 +5,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.sql.Date;
 
 @Data
@@ -27,5 +24,8 @@ public class Edition {
     private Date data_inicial;
     private Date data_final;
     private String cidade;
-    private Long id_evento;
+
+    @OneToOne
+    @JoinColumn(name = "fk_evento", nullable=false)
+    private Event event;
 }
