@@ -21,7 +21,8 @@ public class UserController {
     @PostMapping
     public ResponseEntity<User> Cadastrar(@RequestBody User user){
 
-        repository.save(new User(user));
+        System.out.println(user);
+        repository.save(user);
         return ResponseEntity.status(HttpStatus.CREATED).body(user);
     }
 
