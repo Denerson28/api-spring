@@ -1,4 +1,4 @@
-package com.devapi.api.api.controller;
+package com.devapi.api.controller;
 
 import com.devapi.api.domain.model.Event;
 import com.devapi.api.domain.model.User;

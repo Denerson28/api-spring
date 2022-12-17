@@ -1,4 +1,4 @@
-package com.devapi.api;
+package com.devapi.api.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
