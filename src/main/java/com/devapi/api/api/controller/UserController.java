@@ -19,20 +19,20 @@ public class UserController {
     @Autowired
     private UserRepository repository;
 
-    @PostMapping
+    @PostMapping(value = "/create")
     public ResponseEntity<User> Create(@RequestBody User user){
         user.setPassword((new BCryptPasswordEncoder().encode(user.getPassword())));
         repository.save(user);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
-    @GetMapping
+    @GetMapping(value = "/read")
     public List<User> Read(){
         return repository.findAll();
     }
 
-    @PutMapping(value = "/{id}")
-    public ResponseEntity<User> Edit(@PathVariable(value = "id") long id, @RequestBody User newUser) {
+    @PutMapping(value = "/update/{id}")
+    public ResponseEntity<User> Update(@PathVariable(value = "id") long id, @RequestBody User newUser) {
         Optional<User> oldUser = repository.findById(id);
         if(oldUser.isPresent()) {
             User user = oldUser.get();
@@ -48,7 +48,7 @@ public class UserController {
         }
     }
 
-    @GetMapping(value = "/{id}")
+    @GetMapping(value = "/delete/{id}")
     public ResponseEntity<Object> Delete(@PathVariable(value = "id") long id) {
         Optional<User> user = repository.findById(id);
         if(user.isPresent()) {
