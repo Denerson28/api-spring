@@ -2,10 +2,10 @@ package com.devapi.api.api.controller;
 
 import com.devapi.api.domain.model.User;
 import com.devapi.api.domain.repository.UserRepository;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,6 +21,7 @@ public class UserController {
 
     @PostMapping
     public ResponseEntity<User> Create(@RequestBody User user){
+        user.setPassword((new BCryptPasswordEncoder().encode(user.getPassword())));
         repository.save(user);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
