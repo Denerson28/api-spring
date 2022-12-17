@@ -1,0 +1,1 @@
+INSERT INTO user (affiliation, email, name, password, username) VALUES ("Admin", "maironazevedo@id.uff.br", "Mairon Azevedo", "admin123" "admin")

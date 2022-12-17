@@ -2,6 +2,7 @@ package com.devapi.api.config;
 
 import com.devapi.api.domain.repository.UserRepository;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -17,8 +18,8 @@ import static com.devapi.api.config.SecurityConstants.SIGN_UP_URL;
 
 @EnableWebSecurity
 public class WebSecurity extends WebSecurityConfigurerAdapter {
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
     private UserRepository userDetailsService;
-    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     public WebSecurity(UserRepository userService, BCryptPasswordEncoder bCryptPasswordEncoder) {
         this.userDetailsService = userService;
@@ -37,10 +38,10 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
     }
 
-    @Override
+    /*@Override
     public void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder);
-    }
+    }*/
 
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
