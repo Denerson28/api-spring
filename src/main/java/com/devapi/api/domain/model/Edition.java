@@ -18,7 +18,6 @@ public class Edition {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private int numero;
     private int ano;
     private Date data_inicial;

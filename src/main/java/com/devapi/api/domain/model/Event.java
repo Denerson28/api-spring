@@ -20,7 +20,6 @@ public class Event {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-
     private String nome;
     private String sigla;
     private String descricao;

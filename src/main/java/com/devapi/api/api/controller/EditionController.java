@@ -1,4 +1,4 @@
-package com.devapi.api.controller;
+package com.devapi.api.api.controller;
 
 
 import com.devapi.api.domain.model.Edition;
