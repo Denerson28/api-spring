@@ -1,6 +1,7 @@
 package com.devapi.api.service;
 
 import com.devapi.api.domain.model.User;
+import com.devapi.api.domain.model.UserPrincipal;
 import com.devapi.api.domain.repository.UserRepository;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -14,18 +15,16 @@ public class UserService implements UserDetailsService {
 
     private UserRepository repository;
 
-    public void UsuarioService(UserRepository usuarioRepository) {
-        this.repository = usuarioRepository;
+    public UserService(UserRepository userRepository) {
+        this.repository = userRepository;
     }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Optional<User> user = Optional.ofNullable(repository.findByUsername(username));
-        if(user.isPresent()) {
-            return (UserDetails) repository.findByUsername(username);
+        User user = repository.findByUsername(username);
+        if(user == null) {
+            throw new UsernameNotFoundException(username);
         }
-        else {
-            throw new UsernameNotFoundException(String.format("Usuário %s não encontrado!", username));
-        }
+        return new UserPrincipal(user);
     }
 }

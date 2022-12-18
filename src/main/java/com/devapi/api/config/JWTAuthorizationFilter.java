@@ -14,7 +14,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import static com.devapi.api.config.SecurityConstants.*;
-
 public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
 
     public JWTAuthorizationFilter(AuthenticationManager authManager) {

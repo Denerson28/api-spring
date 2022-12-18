@@ -1,5 +1,6 @@
 package com.devapi.api.api.controller;
 
+import com.devapi.api.config.PasswordConfig;
 import com.devapi.api.domain.model.User;
 import com.devapi.api.domain.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +22,7 @@ public class UserController {
 
     @PostMapping(value = "/create")
     public ResponseEntity<User> Create(@RequestBody User user){
-        user.setPassword((new BCryptPasswordEncoder().encode(user.getPassword())));
+        // user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
         repository.save(user);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
