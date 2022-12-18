@@ -33,13 +33,4 @@ public class UserController {
         repository.save(user);
         return ResponseEntity.status(HttpStatus.CREATED).body(user);
     }
-
-    @GetMapping
-    public UserDetails Listar(Authentication authentication){
-        JwtAuthenticationToken token = (JwtAuthenticationToken) authentication;
-        Map<String, Object> attributes = token.getTokenAttributes();
-        return userDetailsService.loadUserByUsername(attributes.get("username").toString());
-    }
-
-
 }

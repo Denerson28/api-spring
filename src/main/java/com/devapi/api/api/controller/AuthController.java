@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 
 import com.devapi.api.api.controller.resource.LoginResult;
 import com.devapi.api.config.JwtHelper;
+import com.devapi.api.config.WebSecurityConfig;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.GrantedAuthority;
@@ -32,7 +33,7 @@ public class AuthController {
         this.passwordEncoder = passwordEncoder;
     }
 
-    @PostMapping(path = "login", consumes = { MediaType.APPLICATION_FORM_URLENCODED_VALUE })
+    @PostMapping(path = "login", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
     public LoginResult login(
             @RequestParam String username,
             @RequestParam String password) {
@@ -50,8 +51,8 @@ public class AuthController {
 
             String authorities = userDetails.getAuthorities().stream()
                     .map(GrantedAuthority::getAuthority)
-                    .collect(Collectors.joining(","));
-            claims.put("authorities", authorities);
+                    .collect(Collectors.joining(" "));
+            claims.put(WebSecurityConfig.AUTHORITIES_CLAIM_NAME, authorities);
             claims.put("userId", String.valueOf(1));
 
             String jwt = jwtHelper.createJwtForClaims(username, claims);

@@ -7,6 +7,7 @@ import com.devapi.api.domain.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,9 +20,8 @@ public class EventController {
     private EventRepository repository;
 
     @PostMapping
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<Event> Cadastrar(@RequestBody Event event){
-
-        System.out.println(event);
         repository.save(event);
         return ResponseEntity.status(HttpStatus.CREATED).body(event);
     }
