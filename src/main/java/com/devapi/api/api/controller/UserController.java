@@ -26,11 +26,9 @@ public class UserController {
     @Autowired
     private UserDetailsService userDetailsService;
 
-    @PostMapping
-    public ResponseEntity<User> Cadastrar(@RequestBody User user){
-
-        System.out.println(user);
+    @PostMapping(value = "/create")
+    public ResponseEntity Create(@RequestBody User user){
         repository.save(user);
-        return ResponseEntity.status(HttpStatus.CREATED).body(user);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 }
