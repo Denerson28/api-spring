@@ -22,7 +22,7 @@ public class ActivityController {
     private ActivityRepository repository;
 
     @PostMapping
-    @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasAuthority('ORGANIZER')")
     public ResponseEntity<Activity> Cadastrar(@RequestBody Activity activity){
         System.out.println(activity);
         repository.save(activity);
@@ -30,11 +30,13 @@ public class ActivityController {
     }
 
     @GetMapping
+    @PreAuthorize("hasAuthority('USER')")
     public List<Activity> Listar(){
         return repository.findAll();
     }
 
     @PutMapping("/{id}")
+    @PreAuthorize("hasAuthority('ORGANIZER')")
     public ResponseEntity<Activity> editar(@PathVariable("id") Long atividadeId, @RequestBody Activity atividadeInfo) {
         Activity atividade = repository.findById(atividadeId).get();
 
@@ -49,6 +51,7 @@ public class ActivityController {
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasAuthority('ORGANIZER')")
     public Map<String, Boolean> deletar(@PathVariable("id") Long atividadeId) {
         Activity atividade = repository.findById(atividadeId).get();
 
