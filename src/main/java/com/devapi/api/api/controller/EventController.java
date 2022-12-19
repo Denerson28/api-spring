@@ -8,7 +8,6 @@ import com.devapi.api.domain.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -23,20 +22,17 @@ public class EventController {
     private EventRepository repository;
 
     @PostMapping
-    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<Event> Cadastrar(@RequestBody Event event){
         repository.save(event);
         return ResponseEntity.status(HttpStatus.CREATED).body(event);
     }
 
     @GetMapping
-    @PreAuthorize("hasAuthority('ADMIN')")
     public List<Event> Listar(){
         return repository.findAll();
     }
 
     @PutMapping("/{id}")
-    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<Event> editar(@PathVariable("id") Long eventId, @RequestBody Event eventInfo) {
         Event event = repository.findById(eventId).get();
 
@@ -50,7 +46,6 @@ public class EventController {
     }
 
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasAuthority('ADMIN')")
     public Map<String, Boolean> deletar(@PathVariable("id") Long eventId) {
         Event event = repository.findById(eventId).get();
 

@@ -9,7 +9,6 @@ import com.devapi.api.domain.repository.EventRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -24,7 +23,6 @@ public class EditionController {
     private EditionRepository repository;
 
     @PostMapping
-    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<Edition> Cadastrar(@RequestBody Edition edition){
         System.out.println(edition);
         repository.save(edition);
@@ -32,13 +30,11 @@ public class EditionController {
     }
 
     @GetMapping
-    @PreAuthorize("hasAuthority('ADMIN')")
     public List<Edition> Listar(){
         return repository.findAll();
     }
 
     @PutMapping("/{id}")
-    @PreAuthorize("hasAnyAuthority('ADMIN', 'ORGANIZER')")
     public ResponseEntity<Edition> editar(@PathVariable("id") Long editionId, @RequestBody Edition editionInfo) {
         Edition edition = repository.findById(editionId).get();
 
@@ -53,7 +49,6 @@ public class EditionController {
     }
 
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasAuthority('ADMIN')")
     public Map<String, Boolean> deletar(@PathVariable("id") Long editionId) {
         Edition edition = repository.findById(editionId).get();
 

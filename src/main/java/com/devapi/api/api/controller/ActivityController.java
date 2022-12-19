@@ -7,7 +7,6 @@ import com.devapi.api.domain.repository.ActivityRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -22,7 +21,6 @@ public class ActivityController {
     private ActivityRepository repository;
 
     @PostMapping
-    @PreAuthorize("hasAuthority('ORGANIZER')")
     public ResponseEntity<Activity> Cadastrar(@RequestBody Activity activity){
         System.out.println(activity);
         repository.save(activity);
@@ -30,13 +28,11 @@ public class ActivityController {
     }
 
     @GetMapping
-    @PreAuthorize("hasAuthority('USER')")
     public List<Activity> Listar(){
         return repository.findAll();
     }
 
     @PutMapping("/{id}")
-    @PreAuthorize("hasAuthority('ORGANIZER')")
     public ResponseEntity<Activity> editar(@PathVariable("id") Long atividadeId, @RequestBody Activity atividadeInfo) {
         Activity atividade = repository.findById(atividadeId).get();
 
@@ -51,7 +47,6 @@ public class ActivityController {
     }
 
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasAuthority('ORGANIZER')")
     public Map<String, Boolean> deletar(@PathVariable("id") Long atividadeId) {
         Activity atividade = repository.findById(atividadeId).get();
 

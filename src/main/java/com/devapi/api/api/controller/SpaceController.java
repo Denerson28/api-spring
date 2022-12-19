@@ -7,7 +7,6 @@ import com.devapi.api.domain.repository.SpaceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -21,7 +20,6 @@ public class SpaceController {
     private SpaceRepository repository;
 
     @PostMapping
-    @PreAuthorize("hasAuthority('ORGANIZER')")
     public ResponseEntity<Space> Cadastrar(@RequestBody Space space){
         System.out.println(space);
         repository.save(space);
@@ -34,7 +32,6 @@ public class SpaceController {
     }
 
     @PutMapping("/{id}")
-    @PreAuthorize("hasAuthority('ORGANIZER')")
     public ResponseEntity<Space> editar(@PathVariable("id") Long spaceId, @RequestBody Space spaceInfo) {
         Space space = repository.findById(spaceId).get();
 
@@ -49,7 +46,6 @@ public class SpaceController {
     }
 
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasAuthority('ORGANIZER')")
     public Map<String, Boolean> deletar(@PathVariable("id") Long spaceId) {
         Space space = repository.findById(spaceId).get();
 
